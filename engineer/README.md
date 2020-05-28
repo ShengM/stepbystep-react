@@ -133,3 +133,32 @@ module.exports = Object.assign(baseConfig, {
 });
 ```
 
+### 代码分割
+
+#### 原理
+
+ES2020动态模块导入
+
+#### 使用方法
+
+1. 使用 `React.lazy` 返回异步渲染的组件
+2. 使用 `Suspense` 渲染异步组件
+3. 借助 webpack 等工具将组件打包成单独 chunk
+
+``` react
+let LazyComponent = React.lazy(() => import('./components/lazyComponent'));
+
+function Main() {
+	return (
+		<fieldset>
+			<legend>Lazy Component</legend>
+			<Suspense fallback={<div>The component is loading...</div>}>
+				<LazyComponent />
+			</Suspense>
+		</fieldset>
+	);
+}
+```
+
+
+
