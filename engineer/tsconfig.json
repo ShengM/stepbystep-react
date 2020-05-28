@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "sourceMap": true,
-    "module": "es6",
+    "module": "ES2020", // 支持动态模块import(xxx).then(xxx)
     "target": "ES5",
     "jsx": "react",
     "allowSyntheticDefaultImports": true

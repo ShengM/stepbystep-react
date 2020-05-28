@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-	entry: './app.tsx',
+	entry: './app.tsx', // 入口文件
 	module: {
 		rules: [
 			{
@@ -31,7 +31,9 @@ module.exports = {
 		extensions: ['.tsx', '.ts', '.js'],
 	},
 	plugins: [
+		// 清理输出目录
 		new CleanWebpackPlugin(),
+		// 生成Html文件
 		new HtmlWebpackPlugin({
 			template: 'index.html',
 		}),

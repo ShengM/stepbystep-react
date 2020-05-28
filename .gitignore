@@ -1,5 +1,11 @@
+# build
 dist/
-node_modules/
 *.log
+
+# dependency
+node_modules/
+
+# ide
 package-lock.json
+yarn.lock
 .DS_Store

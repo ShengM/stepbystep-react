@@ -1,68 +1,135 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 工程化
 
-## Available Scripts
+### 目标
 
-In the project directory, you can run:
+* 组件化开发
+* TypeScript
+* Less
+* 预览服务和热重载
 
-### `npm start`
+### 配置
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### package.json
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+``` json
+{
+  "scripts": {
+    "dev": "webpack-dev-server --config build/webpack.config.dev.js",
+    "build": "webpack --config build/webpack.config.prod.js"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.5.3",
+    "html-webpack-plugin": "^4.3.0",
+    "less-loader": "^6.1.0",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
+```
 
-### `npm test`
+#### tsconfig
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+``` json
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "module": "ES2020", // 支持动态模块import(xxx).then(xxx)
+    "target": "ES5",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
+  }
+}
+```
 
-### `npm run build`
+#### webpack base config (基础配置)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+``` js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+module.exports = {
+	entry: './app.tsx', // 入口文件
+	module: {
+		rules: [
+			{
+				test: /\.tsx?$/,
+				use: 'ts-loader',
+				exclude: /node_modules/,
+			},
+			{
+				test: /\.less$/,
+				use: [
+					{
+						loader: 'style-loader',
+					},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'less-loader',
+					},
+				],
+			},
+		],
+	},
+	resolve: {
+		extensions: ['.tsx', '.ts', '.js'],
+	},
+	plugins: [
+		// 清理输出目录
+		new CleanWebpackPlugin(),
+		// 生成Html文件
+		new HtmlWebpackPlugin({
+			template: 'index.html',
+		}),
+	],
+};
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### webpack dev config (开发环境配置)
 
-### `npm run eject`
+``` js
+const path = require('path');
+const baseConfig = require('./webpack.config.base');
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+// 提供开发时的预览服务
+module.exports = Object.assign(baseConfig, {
+	mode: 'development',
+	devtool: 'source-map',
+	devServer: {
+		open: true, // 打开浏览器
+		port: 17001,
+		liveReload: true,
+	},
+});
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### webpack prod config (生产环境配置)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+``` js
+const path = require('path');
+const baseConfig = require('./webpack.config.base');
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+module.exports = Object.assign(baseConfig, {
+	mode: 'production',
+	output: {
+		filename: 'app.js',
+		path: path.resolve(process.cwd(), 'dist'),
+	},
+});
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
