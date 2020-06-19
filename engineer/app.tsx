@@ -1,17 +1,16 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './app.less';
 
-let LazyComponent = React.lazy(() => import('./components/lazyComponent'));
+import { LazyComponentDemo } from './lazy-component-demo/lazyComponentDemo';
+import ReduxDemo from './redux-demo';
 
 function Main() {
 	return (
-		<fieldset>
-			<legend>Lazy Component</legend>
-			<Suspense fallback={<div>The component is loading...</div>}>
-				<LazyComponent />
-			</Suspense>
-		</fieldset>
+		<React.Fragment>
+			<LazyComponentDemo />
+			<ReduxDemo />
+		</React.Fragment>
 	);
 }
 

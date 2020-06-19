@@ -6,6 +6,7 @@
     "module": "ES2020", // 支持动态模块import(xxx).then(xxx)
     "target": "ES5",
     "jsx": "react",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   }
 }
