@@ -1,29 +1,22 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import Footer from './components/footer';
+import AddTodo from './containers/addTodo';
+import VisibleTodoList from './containers/visibleTodoList';
 import { createStore } from 'redux';
-import rootReducers from './reducers';
-import { addTodo, toggleTodo, setVisibilityFilter, VisibilityFilters } from './actions';
+import { Provider } from 'react-redux';
+import todoApp from './reducers';
 
-let store = createStore(rootReducers);
-console.log('initial state:', store.getState());
-
-let unsubscribe = store.subscribe(() => console.log('state change:', store.getState()));
-
-store.dispatch(addTodo('Jim'));
-store.dispatch(addTodo('Lucy'));
-store.dispatch(toggleTodo(0));
-store.dispatch(toggleTodo(1));
-store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED));
-
-unsubscribe();
-store.dispatch(toggleTodo(0));
-console.log('last state:', store.getState());
+let store = createStore(todoApp);
 
 export default function ReduxDemo() {
 	return (
 		<fieldset>
 			<legend>Redux demo</legend>
-			{/* <Provider store={store}></Provider> */}
+			<Provider store={store}>
+				<AddTodo />
+				<VisibleTodoList />
+				<Footer />
+			</Provider>
 		</fieldset>
 	);
 }

@@ -14,11 +14,9 @@ export enum VisibilityFilters {
 	SHOW_ACTIVE = 'SHOW_ACTIVE',
 }
 
-/*
- * action creators
- */
+let nextTodoID = 0;
 export function addTodo(text: String) {
-	return { type: ADD_TODO, text };
+	return { id: nextTodoID++, type: ADD_TODO, text };
 }
 
 export function toggleTodo(index: Number) {

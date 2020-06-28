@@ -16,6 +16,7 @@ function todos(state: any[] = [], action: any) {
 			return [
 				...state,
 				{
+					id: action.id,
 					text: action.text,
 					completed: false,
 				},
