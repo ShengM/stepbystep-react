@@ -1,6 +1,4 @@
-# stepbystep-react
-
-Learning React step by step
+# Learning React step by step
 
 ## [基础](./foundation)
 
@@ -11,6 +9,14 @@ Learning React step by step
 ### 条件渲染
 
 ### 组件通信
+
+#### 属性（Props）
+
+#### Context
+
+### 高阶组件（HOC）
+
+### 异常处理
 
 ## [工程化](./engineer)
 
