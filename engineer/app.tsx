@@ -4,12 +4,14 @@ import './app.less';
 
 import { LazyComponentDemo } from './lazy-component-demo/lazyComponentDemo';
 import ReduxDemo from './redux-demo';
+import Modularization from './modularization';
 
 function Main() {
 	return (
 		<React.Fragment>
 			<LazyComponentDemo />
 			<ReduxDemo />
+			<Modularization />
 		</React.Fragment>
 	);
 }
