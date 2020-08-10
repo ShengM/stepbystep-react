@@ -4,9 +4,9 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "module": "ES2020", // 支持动态模块import(xxx).then(xxx)
-    "target": "ES5",
+    "target": "ES6",
     "jsx": "react",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
   }
 }

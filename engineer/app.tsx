@@ -5,6 +5,7 @@ import './app.less';
 import { LazyComponentDemo } from './lazy-component-demo/lazyComponentDemo';
 import ReduxDemo from './redux-demo';
 import Modularization from './modularization';
+import WebComponent from './web-component';
 
 function Main() {
 	return (
@@ -12,6 +13,7 @@ function Main() {
 			<LazyComponentDemo />
 			<ReduxDemo />
 			<Modularization />
+			<WebComponent />
 		</React.Fragment>
 	);
 }
